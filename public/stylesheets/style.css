@@ -1,8 +1,15 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.modal-dialog {
+    max-width: 800px;
+    margin: 30px auto;
 }
 
-a {
-  color: #00B7FF;
+.modal-body {
+    position: relative;
+    padding: 0px;
+}
+
+#video-btn-close {
+    position: absolute;
+    right: -30px;
+    top: 0;
 }
