@@ -88,16 +88,35 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             document.getElementById("form-error-alert").style.display = "none";
             // send request to server
-            
-            axios.post(`http://127.0.0.1:3000/resize`, null, { params: {
-                file_name: fileUpload.name,
+
+            const image_data = {
+                imageObject: fileUpload,
                 width: width,
                 height: height
-              }})
-              .then(res => {
-                console.log(res.data);
-              })
-              .catch(err => console.warn(err));
+            }
+
+            const formData = new FormData();
+            formData.append('imageObject', fileUpload);
+
+            axios({
+                method: 'post',
+                url: `http://127.0.0.1:3000/resize`,
+                data: {
+                    imageObject: fileUpload,
+                    formData: formData,
+                    file_name: fileUpload.name,
+                    width: width,
+                    height: height
+                }
+            })
+                .then(res => {
+                    console.log(res.data);
+                    // console.log(res.data.bufferImage);
+
+                    let data = res.data.bufferImage;
+                    document.getElementById('preview-box').setAttribute("src", `data:image/jpeg;base64,${data}`);
+                })
+                .catch(err => console.warn(err));
 
             console.log(typeof (fileUpload));
             console.log(typeof (width));
@@ -105,8 +124,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-    })
 
+        // const axios = require('axios');
+
+        // const sendGetRequest = async () => {
+        //     try {
+        //         const resp = await axios.get('https://jsonplaceholder.typicode.com/posts');
+        //         console.log(resp.data);
+        //     } catch (err) {
+        //         // Handle Error Here
+        //         console.error(err);
+        //     }
+        // };
+
+        // sendGetRequest();
+
+
+    })
 
     // ************** end completely loaded
 });

@@ -55,7 +55,8 @@
 
                         <div class="row g-3">
                             <div class="col-12">
-                                <div class="alert alert-success alert-dismissible fade show" role="alert" id="image-info-alert" style="display: none;" > 
+                                <div class="alert alert-success alert-dismissible fade show" role="alert"
+                                    id="image-info-alert" style="display: none;">
                                     <strong>Name:</strong> <span id="image-name">resize.png</span> <br />
                                     <strong>Size:</strong> <span id="image-size">12 kib</span> |
                                     <strong>Type:</strong> <span id="image-type">png</span> <br />
@@ -63,7 +64,8 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
                                 </div>
-                                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="display: none;" id="error-alert">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                                    style="display: none;" id="error-alert">
                                     <strong>Error:</strong> <span id="error-message">resize.png</span> <br />
                                     <button type="button" class="btn-close" data-bs-dismiss="alert"
                                         aria-label="Close"></button>
@@ -102,7 +104,8 @@
                 </div>
                 <div class="col-md-4 mx-auto">
                     <div class="p-4 p-md-5 border rounded-3 bg-light">
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="form-error-alert" style="display: none;">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="form-error-alert"
+                            style="display: none;">
                             <strong>Error:</strong> <span id="form-error-message">form-error-message</span> <br />
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
@@ -110,39 +113,41 @@
                             <i class="bi bi-rulers" style="font-size: 2rem; color: cornflowerblue"></i>
                             <h3 class="ms-3">Dimensions</h3>
                         </div>
-                        <fieldset disabled id="fieldset">
-                            <div class="row mt-3">
-                                <div class="col-md-5 mb-3">
-                                    <div class="form-group">
-                                        <label for="width">Width (px)</label>
-                                        <input type="number" class="form-control" id="width" placeholder="Width" min="1"
-                                            max="5000" required>
+                            <fieldset disabled id="fieldset">
+                                <div class="row mt-3">
+                                    <div class="col-md-5 mb-3">
+                                        <div class="form-group">
+                                            <label for="width">Width (px)</label>
+                                            <input type="number" class="form-control" id="width" placeholder="Width"
+                                                min="1" name="width" max="5000" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 mt-4">
+                                        <i class="bi bi-x" style="font-size: 1.5rem;"></i>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                            <label for="height">Height (px)</label>
+                                            <input type="number" class="form-control" id="height" placeholder="Height"
+                                                name="height" min="1" max="5000" required>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-2 mt-4">
-                                    <i class="bi bi-x" style="font-size: 1.5rem;"></i>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="form-group">
-                                        <label for="height">Height (px)</label>
-                                        <input type="number" class="form-control" id="height" placeholder="Height"
-                                            min="1" max="5000" required>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <button class="w-100 btn btn-lg btn-primary mt-4" type="button" id="resize-btn">
-                                <i class="bi bi-bounding-box"></i>
-                                Resize
-                            </button>
-                        </fieldset>
+                                <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" id="resize-btn">
+                                    <i class="bi bi-bounding-box"></i>
+                                    Resize
+                                </button>
+                            </fieldset>
                         <hr class="my-4" />
                         <small class="text-muted">Enter the desired Height and Width and then click
                             Resize.</small>
-                            <div class="alert alert-success alert-dismissible fade show mt-2" role="alert" id="form-error-alert" style="display: none;">
-                                <strong>Note:</strong> <span id="done-message">file stored in thumbnails/file_name.png</span> <br />
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
+                        <div class="alert alert-success alert-dismissible fade show mt-2" role="alert"
+                            id="form-error-alert" style="display: none;">
+                            <strong>Note:</strong> <span id="done-message">file stored in
+                                thumbnails/file_name.png</span> <br />
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -2,10 +2,14 @@ import express from "express";
 import morgan from "morgan";
 import path from "path";
 import homeRoute from "./routes/home";
-import userRoute from "./routes/users";
+import userRoute from "./routes/resize_route";
+import bodyParser from "body-parser";
+
 
 const app = express();
 app.use(express.static(path.join(__dirname, "../public")));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.use(morgan("dev"));
 
