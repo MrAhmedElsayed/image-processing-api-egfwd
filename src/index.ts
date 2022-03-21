@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import path from "path";
 import homeRoute from "./routes/home";
-import userRoute from "./routes/resize_route";
+import resizeRoute from "./routes/resizeRoute";
 import bodyParser from "body-parser";
 
 
@@ -15,7 +15,7 @@ app.use(morgan("dev"));
 
 //add the router
 app.use("/", homeRoute);
-app.use("/resize", userRoute);
+app.use("/resize", resizeRoute);
 
 // handle 404 responses
 app.use((req, res, next) => {
