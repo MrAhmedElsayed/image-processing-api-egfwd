@@ -58,7 +58,13 @@ npm i
 | body-parser | Node.js body parsing middleware.                                                                                            | [body-parser](https://www.npmjs.com/package/body-parser) |
 
 
-## project complitation
-- [x] Write the press release
-- [ ] Update the website
-- [ ] Contact the media
+## Submission Checklist
+
+- [ ] All tests pass (end point and functionality tests)
+- [x] Formatting scripts run without issues
+- [x] Build script runs without issue
+- [x] Dev and build server run without issue
+- [x] Image is resized when endpoint is reached for the first time
+- [x] Stored image is loaded when endpoint is reached subsequent times
+- [x] README is complete
+- [ ] Project Rubric has been checked to verify that all requirements have been met
