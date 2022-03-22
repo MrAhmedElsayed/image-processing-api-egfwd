@@ -157,6 +157,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 var image = new Image();
                 image.src = e.target.result;
                 imageBase64 = e.target.result;
+                // remove extension from image name
+                let imageName = imageInput.files[0].name.split('.').slice(0, -1).join('.');
+                // get image extension
+                let imageExtension = getImageExtension(imageInput.files[0].name);
                 // send data to server (using Async Axios) and return resized image
                 const postImageData = async () => {
                     try {
@@ -165,7 +169,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             method: 'post',
                             url: url,
                             data: {
-                                imageFileName: imageInput.files[0].name,
+                                imageExtension: imageExtension,
+                                imageFileName: imageName,
                                 imageFile: imageBase64,
                                 width: width,
                                 height: height
