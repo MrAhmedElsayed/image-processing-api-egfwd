@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec npx ts-node ./src/index.ts",
+    "format": "prettier --config .prettierrc \"src/**/*.{js,html,ts}\" --write",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
-    "format": "prettier --config .prettierrc \"src/**/*.{js,html,ts}\" --write",
-    "build": "npm run lint && npm run format && tsc",
-    "production": "npm run format && npm run lint && npm run lint:fix && npm run build",
+    "build": "npm run lint:fix && npm run format && tsc",
     "start": "node build/index.js",
-    "start:production": "npm run production && npm run dev"
+    "production": "npm run build && npm run start",
+    "start:prod": "npm run build && node build/index.js"
   },
   "keywords": [],
   "author": "",

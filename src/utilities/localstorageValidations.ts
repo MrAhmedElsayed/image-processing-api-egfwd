@@ -1,3 +1,7 @@
+import express from 'express'
+
+const app = express()
+
 // get all images stored in local storage
 app.get('/get-images', (req, res) => {
   console.log('get-images')
@@ -17,7 +21,7 @@ app.get('/check-image/:imageName', (req, res) => {
     res.send({ message: 'No images found !' })
   } else {
     const image = JSON.parse(images).find(
-      (image) => image.file_name === req.params.imageName
+      (image: { file_name: string }) => image.file_name === req.params.imageName
     )
     if (!image) {
       res.send({ message: 'Image not found !' })

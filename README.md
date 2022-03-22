@@ -20,7 +20,20 @@ npm i
 - start development server
     
     ```bash
-    npm run start
+    npm run dev
+    ```
+- build project (output folder "build")
+    ```bash
+    npm run build
+    ```
+- start production server (build then runserver)
+    
+    ```bash
+    npm run start:prod
+    ```
+- production ready (format, lint fix, build, run server)
+    ```bash
+    npm run production
     ```
 - format code with prettier
     ```bash
@@ -34,17 +47,10 @@ npm i
     ```bash
     npm run lint:fix  
     ```
-- build project (output folder "build")
-    ```bash
-    npm run build
-    ```
-- run production version
-    ```bash
-    node build/index.js
-    ```
+
 ## package.json details
 
-| package     | Description                                                                                                                 | npmjs                                                    |
+| package     | Description                                                                                                                 | package in npmjs.com                                     |
 |-------------|-----------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------|
 | express     | Fast, unopinionated, minimalist web framework for node                                                                      | [express](https://www.npmjs.com/package/express)         |
 | morgan      | HTTP request logger middleware for node.js                                                                                  | [morgan](https://www.npmjs.com/package/morgan)           |
