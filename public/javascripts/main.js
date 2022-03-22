@@ -2,7 +2,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // initialize deom video modal  
-    intializeDemoVideo('demoVideo', "videoFrame", 'https://www.youtube.com/embed/oRGDhgITetc');
+    intializeDemoVideo('demoVideo', "videoFrame", 'https://www.youtube.com/embed/17V8azMo4j0');
 
     // upload image proccess 
     listenToInputChanges('image-input')
@@ -143,15 +143,15 @@ document.addEventListener("DOMContentLoaded", function () {
         let width = 0
 
         // check if inputs before submit data
-        let inputsValidator = ImageDataValidator.bind(event, 'image-input', 'width', 'height', 'form-error-alert', 'error-message', 'Please fill all inputs...');
-
+        let inputsValidator = ImageDataValidator('image-input', 'width', 'height', 'form-error-alert', 'form-error-message', 'Please fill all inputs...');
+        
+        // if inputs are valid
         if (inputsValidator) {
             let imageDimentions = cleanHeightAndWidthInputs('width', 'height');
             width = imageDimentions.width;
             height = imageDimentions.height;
             let imageInput = document.getElementById('image-input');
             var reader = new FileReader();
-
             reader.readAsDataURL(imageInput.files[0]);
             reader.onload = function (e) {
                 var image = new Image();
@@ -161,6 +161,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 let imageName = imageInput.files[0].name.split('.').slice(0, -1).join('.');
                 // get image extension
                 let imageExtension = getImageExtension(imageInput.files[0].name);
+                //  show loader gif
+                document.getElementById('preview-box').setAttribute("src", 'http://127.0.0.1:3000/images/preloader.gif'); 
+
                 // send data to server (using Async Axios) and return resized image
                 const postImageData = async () => {
                     try {
@@ -176,9 +179,6 @@ document.addEventListener("DOMContentLoaded", function () {
                                 height: height
                             },
                         });
-                        // display resized image
-                        console.log(res.data);
-                        // display resized image
                         let resizedImageAsString = res.data.bufferImage;
                         document.getElementById('preview-box').setAttribute("src", `data:image/jpeg;base64,${resizedImageAsString}`);
                     } catch (error) {
@@ -186,10 +186,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 }
                 postImageData();
-
             }
         }
-
     }
 
 
