@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon --exec npx ts-node ./src/index.ts",
     "format": "prettier --config .prettierrc \"src/**/*.{js,html,ts}\" --write",
-    "lint": "eslint src --ext .ts",
+    "lint": "eslint src --ext \"src/**/*.{js,ts}\"",
     "lint:fix": "npm run lint -- --fix",
     "build": "npm run lint:fix && npm run format && tsc",
     "start": "node build/index.js",
