@@ -72,3 +72,7 @@ npm i
 - [x] Stored image is loaded when endpoint is reached subsequent times
 - [x] README is complete
 - [ ] Project Rubric has been checked to verify that all requirements have been met
+
+## preview
+
+![Screenshot](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/optimize_image.svg)
