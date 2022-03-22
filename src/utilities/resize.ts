@@ -1,4 +1,4 @@
-import sharp from "sharp";
+import sharp from 'sharp'
 
 async function resizeImage(
   image: Buffer,
@@ -13,13 +13,17 @@ async function resizeImage(
         width: width,
         height: height,
       })
-      .toFile("./public/thumbnails/" + `${fileName}_${width}_X_${height}.${imageExtension}`)
+      .toFile(
+        './public/thumbnails/' +
+          `${fileName}_${width}_X_${height}.${imageExtension}`
+      )
       .then((data) => {
+        console.log(data)
         // send base64 string
-        console.log("resize done");
-      });
+        console.log('resize done')
+      })
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
 
   const semiTransparentRedPng = await sharp(image)
@@ -29,13 +33,11 @@ async function resizeImage(
     })
     .toBuffer()
     .then((data) => {
-      let returnedData = { bufferImage: data.toString("base64") };
-      return returnedData;
-    }
-    );
+      const returnedData = { bufferImage: data.toString('base64') }
+      return returnedData
+    })
 
-  return semiTransparentRedPng;
-
+  return semiTransparentRedPng
 }
 
-export default resizeImage;
+export default resizeImage
