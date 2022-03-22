@@ -47,6 +47,10 @@ npm i
     ```bash
     npm run lint:fix  
     ```
+- run test
+    ```bash
+    npm run test
+    ```
 
 ## package.json details
 
