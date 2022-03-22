@@ -1,14 +1,12 @@
 import supertest from 'supertest'
-import express from 'express'
-
-const app = express()
+import app from '../index'
 
 // create a request object
 const request = supertest(app)
 
 describe('Test endpoint response', () => {
   it('test hello world endpoint', async () => {
-    const response = await request.get('/')
+    const response = await request.get('/resize')
     expect(response.status).toBe(200)
   })
 })

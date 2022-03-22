@@ -25,3 +25,4 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
 app.listen(process.env.port || 3000);
 console.log('Server started at http://localhost: 3000');
+exports.default = app;

@@ -3,9 +3,9 @@ import path from 'path'
 
 const notFoundRoute = express.Router()
 
-/* GET home page. */
+/* GET Error page. */
 notFoundRoute.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, '../views/home.html'))
+  res.sendFile(path.resolve('src', './views/notfound.html'))
 })
 
 export default notFoundRoute
