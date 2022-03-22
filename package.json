@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec npx ts-node ./src/index.ts",
-    "dev": "nodemon ./src/index.ts",
+    "dev": "nodemon --exec npx ts-node ./src/index.ts",
     "lint": "eslint src --ext .ts",
     "lint:fix": "npm run lint -- --fix",
-    "format": "prettier --config .prettierrc \"src/**/*.{js,html,ts}\" --write"
+    "format": "prettier --config .prettierrc \"src/**/*.{js,html,ts}\" --write",
+    "build": "npm run lint && npm run format && tsc",
+    "production": "npm run format && npm run lint && npm run lint:fix && npm run build",
+    "start": "node build/index.js",
+    "start:production": "npm run production && npm run dev"
   },
   "keywords": [],
   "author": "",
@@ -30,13 +33,10 @@
   },
   "dependencies": {
     "@types/body-parser": "^1.19.2",
-    "@types/multer": "^1.4.7",
     "@types/sharp": "^0.30.0",
     "body-parser": "^1.19.2",
-    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "morgan": "^1.10.0",
-    "multer": "^1.4.4",
     "sharp": "^0.30.3"
   }
 }
