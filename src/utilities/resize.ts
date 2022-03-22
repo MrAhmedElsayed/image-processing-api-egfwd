@@ -21,6 +21,8 @@ async function resizeImage(
     direc
   )
 
+  console.log(ifThumb)
+
   if (ifThumb) {
     console.log('>>>>> thumbnail already exists <<<<<')
     // if image found grab it from thumbnails directory
@@ -32,8 +34,10 @@ async function resizeImage(
         const returnedData = { bufferImage: data.toString('base64') }
         return returnedData
       })
+
     return image
   } else {
+    console.log('>>>>> CREATE NEW ONE <<<<<')
     try {
       await sharp(image)
         .resize({
