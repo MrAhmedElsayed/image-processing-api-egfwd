@@ -1,6 +1,6 @@
 import sharp from 'sharp';
 
-async function resizeImage(image:string, width:number, height:number) {
+async function resizeImage(image:Buffer, width:number, height:number) {
   try {
     await sharp(image)
       .resize({
@@ -14,3 +14,4 @@ async function resizeImage(image:string, width:number, height:number) {
 }
 
 
+export default resizeImage;

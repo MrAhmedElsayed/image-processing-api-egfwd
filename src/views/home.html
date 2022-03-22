@@ -39,7 +39,8 @@
                     <div class="row d-flex align-items-center">
                         <div class="col-auto">
                             <label for="formFile" class="form-label visually-hidden">Default file input example</label>
-                            <input class="form-control form-control-lg" type="file" accept="image/*" id="image-input" />
+                            <input class="form-control form-control-lg" name="image-file" type="file" accept="image/*"
+                                id="image-input" />
 
                             <div class="form-text">
                                 please select an image, allowed file types: jpg, jpeg, png.
@@ -113,32 +114,32 @@
                             <i class="bi bi-rulers" style="font-size: 2rem; color: cornflowerblue"></i>
                             <h3 class="ms-3">Dimensions</h3>
                         </div>
-                            <fieldset disabled id="fieldset">
-                                <div class="row mt-3">
-                                    <div class="col-md-5 mb-3">
-                                        <div class="form-group">
-                                            <label for="width">Width (px)</label>
-                                            <input type="number" class="form-control" id="width" placeholder="Width"
-                                                min="1" name="width" max="5000" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2 mt-4">
-                                        <i class="bi bi-x" style="font-size: 1.5rem;"></i>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="height">Height (px)</label>
-                                            <input type="number" class="form-control" id="height" placeholder="Height"
-                                                name="height" min="1" max="5000" required>
-                                        </div>
+                        <fieldset disabled id="fieldset">
+                            <div class="row mt-3">
+                                <div class="col-md-5 mb-3">
+                                    <div class="form-group">
+                                        <label for="width">Width (px)</label>
+                                        <input type="number" class="form-control" id="width" placeholder="Width" min="1"
+                                            name="width" max="5000" required>
                                     </div>
                                 </div>
+                                <div class="col-md-2 mt-4">
+                                    <i class="bi bi-x" style="font-size: 1.5rem;"></i>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="height">Height (px)</label>
+                                        <input type="number" class="form-control" id="height" placeholder="Height"
+                                            name="height" min="1" max="5000" required>
+                                    </div>
+                                </div>
+                            </div>
 
-                                <button class="w-100 btn btn-lg btn-primary mt-4" type="submit" id="resize-btn">
-                                    <i class="bi bi-bounding-box"></i>
-                                    Resize
-                                </button>
-                            </fieldset>
+                            <button class="w-100 btn btn-lg btn-primary mt-4" type="button" id="resize-btn">
+                                <i class="bi bi-bounding-box"></i>
+                                Resize
+                            </button>
+                        </fieldset>
                         <hr class="my-4" />
                         <small class="text-muted">Enter the desired Height and Width and then click
                             Resize.</small>

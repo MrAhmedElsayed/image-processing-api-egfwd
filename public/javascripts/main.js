@@ -1,84 +1,20 @@
 // just wait for document completely loaded and parsed
 document.addEventListener("DOMContentLoaded", function () {
+
     // initialize deom video modal  
     intializeDemoVideo('demoVideo', "videoFrame", 'https://www.youtube.com/embed/oRGDhgITetc');
+
     // upload image proccess 
     listenToInputChanges('image-input')
 
     // listen to upload Button
-    // document.getElementById('upload-image-btn').addEventListener('click', Upload);
     document.getElementById('upload-image-btn').addEventListener('click',
         displayImageAndInfoAlert.bind(event, 'image-input', 'image-info-alert', 'image-name', 'image-size', 'image-type', 'image-dimensions', 'fieldset', 'preview-box'), false
     );
 
-    function Upload() {
-        //Get reference of FileUpload.
-        var fileUpload = document.getElementById("image-input");
-        let image_box = document.getElementById('preview-box');
-
-        console.log(getImageExtension(fileUpload.files[0].name));
-
-        //Check whether the file is valid Image.
-        var regex = new RegExp("([a-zA-Z0-9\s_\\.\-:])+(.jpg|.png|.gif)$");
-        if (regex.test(fileUpload.value.toLowerCase())) {
-
-            //Check whether HTML5 is supported.
-            if (typeof (fileUpload.files) != "undefined") {
-                //Initiate the FileReader object.
-                var reader = new FileReader();
-                //Read the contents of Image File.
-                reader.readAsDataURL(fileUpload.files[0]);
-                reader.onload = function (e) {
-                    //Initiate the JavaScript Image object.
-                    var image = new Image();
-                    //Set the Base64 string return from FileReader as source.
-                    image.src = e.target.result;
-                    image_box.setAttribute("src", e.target.result);
-                    //Validate the File Height and Width.
-                    image.onload = function () {
-                        let height = this.height;
-                        let width = this.width;
-                        // file size
-                        let nBytes = fileUpload.files[0].size;
-                        let sOutput = nBytes + 'bytes';
-                        const aMultiples = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
-                        for (nMultiple = 0, nApprox = nBytes / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
-                            sOutput = `${nApprox.toFixed(2)} ${aMultiples[nMultiple]}`;
-                        }
-                        document.getElementById("image-info-alert").style.display = "block";
-                        document.getElementById('image-name').innerHTML = fileUpload.files[0].name;
-                        document.getElementById('image-size').innerHTML = sOutput;
-                        document.getElementById('image-type').innerHTML = fileUpload.files[0].type;
-                        document.getElementById('image-dimensions').innerHTML = `${width} x ${height}`;
-                        document.getElementById('fieldset').disabled = false;
-                        return true;
-                    };
-                }
-            } else {
-                restAllAfterError("This browser does not support HTML5.", 'http://127.0.0.1:3000/images/undraw_responsiveness.svg');
-                return false;
-            }
-        } else {
-            restAllAfterError("Please select a valid Image file...", 'http://127.0.0.1:3000/images/undraw_responsiveness.svg');
-            return false;
-        }
-    }
-
-    // ------------------------------------- Inputes Validator ----------------------------------------
-
-    function ImageDataValidator(imageFile, width, height) {
-
-    }
-
-
     // -------------------------------------[1] UI behaviors ----------------------------------------
 
-    // [1-1] get file extension lowercase
-    function getImageExtension(filename) {
-        return filename.split('.').pop().toLowerCase();
-    }
-
-    // [1-2] display Image info on upload
+    // [1-1] display Image info on upload
     function displayImageAndInfoAlert(imageFileID, infoAlertID, NameId, sizeID, typeID, dimensionsID, fieldsetOrFormID, previewBoxID) {
         // select image file
         let imageFileInput = document.getElementById(`${imageFileID}`);
@@ -107,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         // list of extention
                         const sizeExtentions = ["KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"];
                         // loop through extention list
-                        for (let i = 0, unitIndex = byteSize / 1024; unitIndex > 1;  unitIndex /= 1024, i++) {
+                        for (let i = 0, unitIndex = byteSize / 1024; unitIndex > 1; unitIndex /= 1024, i++) {
                             outputSize = unitIndex.toFixed(2) + ' ' + sizeExtentions[i];
                         }
                         // display image info
@@ -129,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // [1-3] initial demo video modal
+    // [1-2] initial demo video modal
     function intializeDemoVideo(modalVideoID, videoFrame, videoSrc) {
         let videoModal = document.getElementById(`${modalVideoID}`);
         videoModal.addEventListener('shown.bs.modal', function () {
@@ -138,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    // [1-4] set ui after image upload
+    // [1-3] set ui after image upload
     function listenToInputChanges(inputID) {
         let uploadFile = document.getElementById(`${inputID}`);
         uploadFile.addEventListener('change', function () {
@@ -149,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    // [1-5] reset all after upload error image extension
+    // [1-4] reset all after upload error image extension
     function restAllAfterError(errorMessage, defaultImageLink) {
         let image_box = document.getElementById('preview-box');
         document.getElementById("error-alert").style.display = "block";
@@ -157,6 +93,104 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('fieldset').disabled = true;
         document.getElementById("error-message").innerHTML = `${errorMessage}`;
     }
+
+    // ------------------------------------- [2] Utils ----------------------------------------
+
+    // [2-1] get file extension lowercase
+    function getImageExtension(filename) {
+        return filename.split('.').pop().toLowerCase();
+    }
+
+    // [2-2] check if inputs before submit data
+    function ImageDataValidator(imageInputID, widthInputID, heightInputID, errorAlertID, errorSpan, errorMessage) {
+        // get inputs values on submit
+        let imageInput = document.getElementById(`${imageInputID}`).value;
+        let widthInput = document.getElementById(`${widthInputID}`).value;
+        let heightInput = document.getElementById(`${heightInputID}`).value;
+        // check if inputs are empty
+        if (imageInput === '' || widthInput === '' || heightInput === '') {
+            // display error message, and return false
+            document.getElementById(`${errorAlertID}`).style.display = "block";
+            document.getElementById(`${errorSpan}`).innerHTML = `${errorMessage}`;
+            return false;
+        } else {
+            // hide previous error message, and return true
+            document.getElementById("form-error-alert").style.display = "none";
+            return true;
+        }
+    }
+
+    // [2-3] clean height and width inputs
+    function cleanHeightAndWidthInputs(widthInputID, heightInputID) {
+        try {
+            w = parseInt(document.getElementById(`${widthInputID}`).value);
+            h = parseInt(document.getElementById(`${heightInputID}`).value);
+            let imageDimentions = { width: w, height: h };
+            return imageDimentions;
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
+    // ------------------------------------- [3] Utils ----------------------------------------
+
+    // [3-1] image info request
+    function sendImagewithDimensions() {
+
+        let imageBase64 = ''
+        let height = 0
+        let width = 0
+
+        // check if inputs before submit data
+        let inputsValidator = ImageDataValidator.bind(event, 'image-input', 'width', 'height', 'form-error-alert', 'error-message', 'Please fill all inputs...');
+
+        if (inputsValidator) {
+            let imageDimentions = cleanHeightAndWidthInputs('width', 'height');
+            width = imageDimentions.width;
+            height = imageDimentions.height;
+            let imageInput = document.getElementById('image-input');
+            var reader = new FileReader();
+
+            reader.readAsDataURL(imageInput.files[0]);
+            reader.onload = function (e) {
+                var image = new Image();
+                image.src = e.target.result;
+                imageBase64 = e.target.result;
+                // send data to server (using Async Axios) and return resized image
+                const postImageData = async () => {
+                    try {
+                        url = "http://127.0.0.1:3000/resize";
+                        const res = await axios({
+                            method: 'post',
+                            url: url,
+                            data: {
+                                imageFileName: imageInput.files[0].name,
+                                imageFile: imageBase64,
+                                width: width,
+                                height: height
+                            },
+                        });
+                        // display resized image
+                        console.log(res.data);
+                        // display resized image
+                        let resizedImageAsString = res.data.bufferImage;
+                        document.getElementById('preview-box').setAttribute("src", `data:image/jpeg;base64,${resizedImageAsString}`);
+                    } catch (error) {
+                        console.log(error)
+                    }
+                }
+                postImageData();
+
+            }
+        }
+
+    }
+
+
+    document.getElementById('resize-btn').addEventListener('click', function () {
+        sendImagewithDimensions()
+    });
 
     // ------------------------------------- list all images resized from localstorage ----------------------------------------
     // first check if image objects array in localstorage
@@ -178,56 +212,6 @@ document.addEventListener("DOMContentLoaded", function () {
         imageObjects = [];
         localStorage.setItem('imageObjects', JSON.stringify(imageObjects));
     }
-
-    // ------------------------------------- api requests ----------------------------------------
-    document.getElementById('resize-btn').addEventListener('click', function () {
-        var fileUpload = document.getElementById("image-input").files[0];
-        let width = document.getElementById('width').value;
-        let height = document.getElementById('height').value;
-        // check if all fields are filled with valid values
-        if (width == "" || height == "" && fileUpload == null) {
-            console.log("empty");
-            document.getElementById("form-error-alert").style.display = "block";
-            document.getElementById("form-error-message").innerHTML = "Please fill all fields with valid values";
-        } else {
-            document.getElementById("form-error-alert").style.display = "none";
-            // send request to server
-
-            const image_data = {
-                imageObject: fileUpload,
-                width: width,
-                height: height
-            }
-
-            const formData = new FormData();
-            formData.append('imageObject', fileUpload);
-
-            axios({
-                method: 'post',
-                url: `http://127.0.0.1:3000/resize`,
-                data: {
-                    imageObject: fileUpload,
-                    formData: formData,
-                    file_name: fileUpload.name,
-                    width: width,
-                    height: height
-                }
-            })
-                .then(res => {
-                    console.log(res.data);
-                    // console.log(res.data.bufferImage);
-
-                    let data = res.data.bufferImage;
-                    document.getElementById('preview-box').setAttribute("src", `data:image/jpeg;base64,${data}`);
-                })
-                .catch(err => console.warn(err));
-
-            console.log(typeof (fileUpload));
-            console.log(typeof (width));
-            console.log(typeof (height));
-        }
-    })
-
 
 
     // ************** end completely loaded

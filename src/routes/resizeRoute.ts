@@ -1,76 +1,50 @@
 import express from "express";
 import sharp from "sharp";
 import fs from "fs";
+import { pipeline, Stream } from "stream";
+import resizeImage from "../utilities/resize";
 
 
-
-const userRoute = express.Router();
-
-/* GET home page. */
-userRoute.post("/", function (req, res, next) {
-
-  console.log(req.body)
-  // https://sharp.pixelplumbing.com/api-constructor
-
-  const image = `C:\\Users\\Ahmed\\Desktop\\image-processing-api-egfwd\\public\\demo-images\\encenadaport.jpg`;
-
-  console.log(image)
-
-  // read image data from stream
-  const readStream = fs.createReadStream(image);
-  // create writable stream
-  const writeStream = fs.createWriteStream(`./public/test-output-images/${req.body.file_name}_${req.body.width}_X_${req.body.height}.png`);
-
-  const transformer = sharp()
-    .resize(parseInt(req.body.width), parseInt(req.body.height))
-  // Read image data from readableStream
-  // Write 200px square auto-cropped image data to writableStream
-  readStream
-    .pipe(transformer)
-    .pipe(writeStream);
+const resizeRoute = express.Router();
 
 
+// get base64 string from image and resize with sharp
+resizeRoute.post("/", function (req, res, next) {
+  // console.log(req.body);
+  const base64Image: string = `${req.body.imageFile}`;
+  let parts = base64Image.split(';');
+  let mimType = parts[0].split(':')[1];
+  let imageData = parts[1].split(',')[1];
+  var img = new Buffer(imageData, 'base64');
 
 
-  // read image from buffer
-  sharp(image)
-    .resize(parseInt(req.body.width), parseInt(req.body.height))
-    .toBuffer()
-    .then(data => {
-      // res.send(data);
-      res.status(200).send({ message: "Hello from the server !", bufferImage: data.toString('base64') })
-    });
+  // resize image
+  resizeImage(img, req.body.width, req.body.height)
 
-  // https://stackoverflow.com/questions/57886005/how-to-decode-base64-to-image-in-nodejs
+  // const transformer = sharp(img)
+  //   .resize(parseInt(req.body.width), parseInt(req.body.height))
+  //   .toBuffer()
 
-  // function encode_base64(filename) {
-  //   fs.readFile(path.join(__dirname, filename), function (error, data) {
-  //     if (error) {
-  //       throw error;
-  //     } else {
-  //       //console.log(data);
-  //       var dataBase64 = Buffer.from(data).toString('base64');
-  //       console.log(dataBase64);
-  //       client.write(dataBase64);
-  //     }
-  //   });
-  // }
+  //   .then(data => {
+  //     // res.send(data);
+  //     res.status(200).send({ message: "resize Done", bufferImage: data.toString('base64') })
+  //   })
 
-  // async function resizeImage() {
-  //   try {
-  //     await sharp(image)
-  //       .resize({
-  //         width: 150,
-  //         height: 97
-  //       })
-  //       .toFile("./public/test-output-images/sammy-resized.png");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-  // resizeImage();
+  //   .catch(error => {
+  //     // error handeling
+  //     res.send(error)
+  //   })
+
+  // // read image data from stream
+  // const readStream = fs.createReadStream(img);
+  // // create writable stream
+  // const writeStream = fs.createWriteStream(`./public/test-output-images/${req.body.imageFileName}_${req.body.width}_X_${req.body.height}.png`);
+
+
+  // readStream.pipe(transformer).pipe(writeStream);
+
 
 
 });
 
-export default userRoute;
+export default resizeRoute;
