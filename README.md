@@ -74,5 +74,10 @@ npm i
 - [ ] Project Rubric has been checked to verify that all requirements have been met
 
 ## preview
+### start
+![Screenshot](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/Screenshot1.png)
 
-![Screenshot](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/optimize_image.svg)
+---
+
+### resize
+![Screenshot](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/Screenshot2.png)
