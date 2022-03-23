@@ -19,7 +19,7 @@ app.use('/', home_1.default);
 app.use('/resize', resizeRoute_1.default);
 // handle 404 responses
 app.use(function (req, res) {
-    res.status(404).sendFile(path_1.default.join(__dirname, 'views/notfound.html'));
+    res.status(404).sendFile(path_1.default.resolve('src', './views/notfound.html'));
 });
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));

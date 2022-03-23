@@ -39,68 +39,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var fs_1 = __importDefault(require("fs"));
 var sharp_1 = __importDefault(require("sharp"));
-var filesManage_1 = __importDefault(require("./filesManage"));
-var parseCash_1 = __importDefault(require("./parseCash"));
-var default_thumbnail_directory = './public/thumbnails/';
-function resizeImage(image, width, height, fileName, imageExtension) {
+// get width height name and format from user
+// create function that takes image information
+// and return image or false
+function checkIfThumbnailExists(imageName, imageWidth, imageHeight, imageExtension, defaultPath) {
     return __awaiter(this, void 0, void 0, function () {
-        var direc, ifThumb, image_1, error_1, semiTransparentRedPng;
+        var thumbnails, thumbnailName, imageMetadata, width, height;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    direc = (0, filesManage_1.default)(default_thumbnail_directory);
-                    return [4 /*yield*/, (0, parseCash_1.default)(fileName, width, height, imageExtension, direc)];
+                    thumbnails = fs_1.default.readdirSync(defaultPath);
+                    thumbnailName = "".concat(imageName, "_").concat(imageWidth, "_X_").concat(imageHeight, ".").concat(imageExtension);
+                    if (!thumbnails.includes(thumbnailName)) return [3 /*break*/, 3];
+                    imageMetadata = (0, sharp_1.default)("./public/thumbnails/".concat(thumbnailName)).metadata();
+                    return [4 /*yield*/, imageMetadata];
                 case 1:
-                    ifThumb = _a.sent();
-                    console.log(ifThumb);
-                    if (!ifThumb) return [3 /*break*/, 2];
-                    console.log('>>>>> thumbnail already exists <<<<<');
-                    image_1 = (0, sharp_1.default)("".concat(direc, "/").concat(fileName, "_").concat(width, "_X_").concat(height, ".").concat(imageExtension))
-                        .toBuffer()
-                        .then(function (data) {
-                        var returnedData = { bufferImage: data.toString('base64') };
-                        return returnedData;
-                    });
-                    return [2 /*return*/, image_1];
+                    width = (_a.sent()).width;
+                    return [4 /*yield*/, imageMetadata];
                 case 2:
-                    console.log('>>>>> CREATE NEW ONE <<<<<');
-                    _a.label = 3;
+                    height = (_a.sent()).height;
+                    // check if image info is the same
+                    if (imageWidth === width && imageHeight === height) {
+                        console.log('checkIfThumbnailExists >>>> Found ;)');
+                        return [2 /*return*/, true];
+                    }
+                    return [3 /*break*/, 4];
                 case 3:
-                    _a.trys.push([3, 5, , 6]);
-                    return [4 /*yield*/, (0, sharp_1.default)(image)
-                            .resize({
-                            width: width,
-                            height: height,
-                        })
-                            .toFile(direc + "".concat(fileName, "_").concat(width, "_X_").concat(height, ".").concat(imageExtension))
-                            .then(function (data) {
-                            console.log(data);
-                            // send base64 string
-                            console.log('resize done');
-                        })];
-                case 4:
-                    _a.sent();
-                    return [3 /*break*/, 6];
-                case 5:
-                    error_1 = _a.sent();
-                    console.log(error_1);
-                    return [3 /*break*/, 6];
-                case 6: return [4 /*yield*/, (0, sharp_1.default)(image)
-                        .resize({
-                        width: width,
-                        height: height,
-                    })
-                        .toBuffer()
-                        .then(function (data) {
-                        var returnedData = { bufferImage: data.toString('base64') };
-                        return returnedData;
-                    })];
-                case 7:
-                    semiTransparentRedPng = _a.sent();
-                    return [2 /*return*/, semiTransparentRedPng];
+                    console.log('checkIfThumbnailExists >>>> Not Found ;(');
+                    return [2 /*return*/, false];
+                case 4: return [2 /*return*/];
             }
         });
     });
 }
-exports.default = resizeImage;
+exports.default = checkIfThumbnailExists;

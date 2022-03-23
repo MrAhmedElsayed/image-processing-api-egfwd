@@ -8,9 +8,6 @@ var path_1 = __importDefault(require("path"));
 var homeRoute = express_1.default.Router();
 /* GET home page. */
 homeRoute.get('/', function (req, res) {
-    console.log(path_1.default.join(__dirname, '../views/home.html'));
-    // res.sendFile(path.join(__dirname, '../views/home.html'))
     res.sendFile(path_1.default.resolve('src', './views/home.html'));
-    // res.sendFile('/views/home.html', { root: 'src' })
 });
 exports.default = homeRoute;

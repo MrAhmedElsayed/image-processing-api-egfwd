@@ -24,11 +24,7 @@ async function checkIfThumbnailExists(
     const width = (await imageMetadata).width
     const height = (await imageMetadata).height
     // check if image info is the same
-    if (
-      imageWidth === width &&
-      imageHeight === height
-    ) {
-
+    if (imageWidth === width && imageHeight === height) {
       console.log('checkIfThumbnailExists >>>> Found ;)')
       return true
     }

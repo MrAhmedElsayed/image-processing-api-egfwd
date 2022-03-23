@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = __importDefault(require("express"));
 var path_1 = __importDefault(require("path"));
 var notFoundRoute = express_1.default.Router();
-/* GET home page. */
+/* GET Error page. */
 notFoundRoute.get('/', function (req, res) {
-    res.sendFile(path_1.default.join(__dirname, '../views/home.html'));
+    res.sendFile(path_1.default.resolve('src', './views/notfound.html'));
 });
 exports.default = notFoundRoute;
