@@ -1,16 +1,12 @@
 import express from 'express'
 import resizeImage from '../utilities/resize'
+import { base64ToBufferOnfly } from '../utilities/imageToBuffer'
 
 const resizeRoute = express.Router()
 
 // get base64 string from image and resize with sharp
 resizeRoute.post('/', function (req, res) {
-  const base64Image = `${req.body.imageFile}`
-  const parts = base64Image.split(';')
-  // const mimType = parts[0].split(':')[1]
-  const imageData = parts[1].split(',')[1]
-  const img = Buffer.from(imageData, 'base64')
-
+  const img = base64ToBufferOnfly(req.body.imageFile)
   // resize image
   resizeImage(
     img,

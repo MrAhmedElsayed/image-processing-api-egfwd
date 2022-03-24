@@ -10,9 +10,9 @@
     "lint:fix": "npm run lint -- --fix",
     "build": "npm run lint:fix && npm run format && tsc",
     "start": "node build/index.js",
-    "production": "npm run build && npm run start",
-    "start:prod": "npm run build && node build/index.js",
-    "test": "npm run build && jasmine"
+    "test": "npm run build && jasmine",
+    "production": "npm run test && npm run start",
+    "start:prod": "npm run build && node build/index.js"
   },
   "keywords": [],
   "author": "",

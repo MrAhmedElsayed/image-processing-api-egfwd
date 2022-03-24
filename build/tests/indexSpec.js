@@ -41,32 +41,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var filesManage_1 = __importDefault(require("../utilities/filesManage"));
 var resize_1 = __importDefault(require("../utilities/resize"));
-// Create a test to see if the directory exists or not, and if it does not exist, it will be created
-describe('createOrReturnDirectory', function () {
-    it('should return the directory path', function () {
-        var defaultPath = 'public/thumbnails';
-        var directoryPath = (0, filesManage_1.default)(defaultPath);
-        expect(directoryPath).toBe(defaultPath);
-    });
+var imageToBuffer_1 = require("../utilities/imageToBuffer");
+// Create a test to see if the directory exists or not, and if it does not exist,
+// it will be created
+it('should return the directory path', function () {
+    var defaultPath = 'public/thumbnails';
+    var directoryPath = (0, filesManage_1.default)(defaultPath);
+    expect(directoryPath).toBe(defaultPath);
 });
 // Create a test in an asynchronous way to change the image size by entering the file name,
 // width, height and check whether the image has been converted correctly
 describe('resizeImage', function () {
-    it('should return the image path', function () { return __awaiter(void 0, void 0, void 0, function () {
-        var defaultPath, imageName, imageWidth, imageHeight, imageExtension, imagePath, image;
+    it('Check if image found after resize', function () { return __awaiter(void 0, void 0, void 0, function () {
+        var base64Image, imageBuffer, image;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0:
-                    defaultPath = 'public/thumbnails';
-                    imageName = 'test';
-                    imageWidth = 100;
-                    imageHeight = 100;
-                    imageExtension = 'jpg';
-                    imagePath = "".concat(defaultPath, "/").concat(imageName, "_").concat(imageWidth, "_X_").concat(imageHeight, ".").concat(imageExtension);
-                    return [4 /*yield*/, (0, resize_1.default)(imageName, imageWidth, imageHeight, imageExtension, defaultPath)];
+                case 0: return [4 /*yield*/, (0, imageToBuffer_1.imageToBase64)('./public/demo-images/santamonica.jpg')];
                 case 1:
+                    base64Image = _a.sent();
+                    imageBuffer = (0, imageToBuffer_1.base64ToBuffer)(base64Image);
+                    return [4 /*yield*/, (0, resize_1.default)(imageBuffer, 100, 100, 'santamonica', 'jpg')];
+                case 2:
                     image = _a.sent();
-                    expect(image).toBe(imagePath);
+                    expect(image).toBeDefined();
                     return [2 /*return*/];
             }
         });
