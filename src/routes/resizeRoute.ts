@@ -20,7 +20,9 @@ resizeRoute.post('/', function (req, res) {
     req.body.imageFileName,
     req.body.imageExtension
   ).then((data) => {
-    res.send(data)
+    res.send(data).status(200)
+  }).catch((err) => {
+    res.send(err).status(500)
   })
 })
 
