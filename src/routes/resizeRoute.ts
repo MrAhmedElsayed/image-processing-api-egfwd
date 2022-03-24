@@ -5,7 +5,6 @@ const resizeRoute = express.Router()
 
 // get base64 string from image and resize with sharp
 resizeRoute.post('/', function (req, res) {
-  // console.log(req.body);
   const base64Image = `${req.body.imageFile}`
   const parts = base64Image.split(';')
   // const mimType = parts[0].split(':')[1]
@@ -19,11 +18,13 @@ resizeRoute.post('/', function (req, res) {
     req.body.height,
     req.body.imageFileName,
     req.body.imageExtension
-  ).then((data) => {
-    res.send(data).status(200)
-  }).catch((err) => {
-    res.send(err).status(500)
-  })
+  )
+    .then((data) => {
+      res.send(data).status(200)
+    })
+    .catch((err) => {
+      res.send(err).status(500)
+    })
 })
 
 export default resizeRoute

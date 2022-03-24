@@ -51,9 +51,11 @@ function checkIfThumbnailExists(imageName, imageWidth, imageHeight, imageExtensi
             switch (_a.label) {
                 case 0:
                     thumbnails = fs_1.default.readdirSync(defaultPath);
+                    console.log(thumbnails);
+                    console.log(defaultPath);
                     thumbnailName = "".concat(imageName, "_").concat(imageWidth, "_X_").concat(imageHeight, ".").concat(imageExtension);
                     if (!thumbnails.includes(thumbnailName)) return [3 /*break*/, 3];
-                    imageMetadata = (0, sharp_1.default)("./public/thumbnails/".concat(thumbnailName)).metadata();
+                    imageMetadata = (0, sharp_1.default)("".concat(defaultPath).concat(thumbnailName)).metadata();
                     return [4 /*yield*/, imageMetadata];
                 case 1:
                     width = (_a.sent()).width;

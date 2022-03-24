@@ -193,6 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return false
       } else {
           console.log('valid inputs')
+          errorAlert.style.display = 'none'
         return true
       }
     }
