@@ -192,7 +192,6 @@ document.addEventListener('DOMContentLoaded', function () {
         errorAlert.style.display = 'block'
         return false
       } else {
-          console.log('valid inputs')
           errorAlert.style.display = 'none'
         return true
       }

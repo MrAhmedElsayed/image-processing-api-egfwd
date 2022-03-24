@@ -21,10 +21,7 @@ async function resizeImage(
     direc
   )
 
-  console.log(ifThumb)
-
   if (ifThumb) {
-    console.log('>>>>> thumbnail already exists <<<<<')
     // if image found grab it from thumbnails directory
     const image = sharp(
       `${direc}/${fileName}_${width}_X_${height}.${imageExtension}`
@@ -37,7 +34,6 @@ async function resizeImage(
 
     return image
   } else {
-    console.log('>>>>> CREATE NEW ONE <<<<<')
     try {
       await sharp(image)
         .resize({
@@ -47,8 +43,6 @@ async function resizeImage(
         .toFile(direc + `${fileName}_${width}_X_${height}.${imageExtension}`)
         .then((data) => {
           console.log(data)
-          // send base64 string
-          console.log('resize done')
         })
     } catch (error) {
       console.log(error)
