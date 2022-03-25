@@ -51,22 +51,23 @@ npm i
     ```bash
     npm run test
     ```
-## Back-end Resize (New)
-- past this url in browser, and you will get the resized image  
-    ```bash 
-    http://127.0.0.1:3000/resize?file_name=encenadaport.jpg&width=1000&height=400
-    ```
-
-- you can enter your desired values as example :  
-    file_name=fjord.jpg  
-    width=300  
-    height=200  
+## Backend Resize functionality (New)
+- Example: past this URL in your browser, and you will get the resized image:  
     
-    full URL become: http://127.0.0.1:3000/resize?file_name=fjord.jpg&width=300&height=200
+    http://127.0.0.1:3000/resize?file_name=encenadaport.jpg&width=1000&height=400
+    
 
-### what expectation ??
-- you will get the resized image.
-- resize image will saved in "./public/thumbnails" Directory. 
+- To resize an image inter this parameters in your URL as the following :  
+    file_name=fjord.jpg (refere to image name in demo-images Directory)   
+    width=300 (target image width)  
+    height=200  (target image height)
+    
+    full URL becomes:  
+    http://127.0.0.1:3000/resize?file_name=fjord.jpg&width=300&height=200
+
+- ### what to expect ??
+    - you will get the resized image.
+    - resize image will saved in "./public/thumbnails" Directory. 
 
 ## package.json details
 
@@ -80,14 +81,14 @@ npm i
 
 ## Submission Checklist
 
-- [ ] All tests pass (end point and functionality tests)
+- [x] All tests pass (end point and functionality tests)
 - [x] Formatting scripts run without issues
 - [x] Build script runs without issue
 - [x] Dev and build server run without issue
 - [x] Image is resized when endpoint is reached for the first time
 - [x] Stored image is loaded when endpoint is reached subsequent times
 - [x] README is complete
-- [ ] Project Rubric has been checked to verify that all requirements have been met
+- [x] Project Rubric has been checked to verify that all requirements have been met
 
 ## preview
 ### start
