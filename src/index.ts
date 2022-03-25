@@ -2,7 +2,8 @@ import express from 'express'
 import morgan from 'morgan'
 import path from 'path'
 import homeRoute from './routes/home'
-import resizeRoute from './routes/resizeRoute'
+import resizeRouteFromFrontend from './routes/resizeRouteFromFrontend'
+import resizeRoute from './routes/resize'
 import bodyParser from 'body-parser'
 
 const app = express()
@@ -15,9 +16,10 @@ app.use(morgan('dev'))
 //add the router
 app.use('/', homeRoute)
 app.use('/resize', resizeRoute)
+app.use('/resize-from-frontend', resizeRouteFromFrontend)
 
 // handle 404 responses
-app.use((req, res) => {
+app.use((req: express.Request, res: express.Response): void => {
   res.status(404).sendFile(path.resolve('src', './views/notfound.html'))
 })
 

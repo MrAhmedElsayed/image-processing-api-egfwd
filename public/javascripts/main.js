@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // send data to server (using Async Axios) and return resized image
         const postImageData = async () => {
           try {
-            let requestUrl = 'http://127.0.0.1:3000/resize'
+            let requestUrl = 'http://127.0.0.1:3000/resize-from-frontend'
             const res = await axios({
               method: 'post',
               url: requestUrl,

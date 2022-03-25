@@ -51,6 +51,22 @@ npm i
     ```bash
     npm run test
     ```
+## Back-end Resize (New)
+- past this url in browser, and you will get the resized image  
+    ```bash 
+    http://127.0.0.1:3000/resize?file_name=encenadaport.jpg&width=1000&height=400
+    ```
+
+- you can enter your desired values as example :  
+    file_name=fjord.jpg  
+    width=300  
+    height=200  
+    
+    full URL become: http://127.0.0.1:3000/resize?file_name=fjord.jpg&width=300&height=200
+
+### what expectation ??
+- you will get the resized image.
+- resize image will saved in "./public/thumbnails" Directory. 
 
 ## package.json details
 
