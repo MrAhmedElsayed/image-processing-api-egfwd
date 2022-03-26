@@ -5,7 +5,7 @@ export function displayErrorAlert(
   const errorMessage = `
     <div
       style="
-        max-width: 300px;
+        max-width: 500px;
         box-sizing: border-box;
         color: #842029;
         background-color: #f8d7da;
@@ -15,10 +15,10 @@ export function displayErrorAlert(
         margin: 3rem;
         border: 1px solid transparent;
         border-radius: 0.25rem;
-        font-family: Roboto, sans-serif;
+        font-family: sans-serif;
       "
     >
-      <div style="text-align: center; margin: 2px ;">
+      <div style="text-align: center; margin-bottom: 15px ;">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"

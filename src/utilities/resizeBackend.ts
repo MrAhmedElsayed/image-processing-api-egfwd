@@ -9,10 +9,11 @@ import sharp from 'sharp'
 
 // create async function to resize image using sharp
 async function resizeImageBackend(
-  outputDir: string,
+  inFileName: string,
   inWidth: string,
   inHeight: string,
-  inFileName: string,
+  outputDir: string,
+  demoImageDirectory: string,
   inRes: express.Response
 ) {
   // check if the image resized with same dimensions exists
@@ -42,7 +43,7 @@ async function resizeImageBackend(
       })
   } else {
     //  CHEK if image in demo-images directory
-    const fileExists = await fs.existsSync(`./public/demo-images/${inFileName}`)
+    const fileExists = await fs.existsSync(`${demoImageDirectory}${inFileName}`)
     if (fileExists) {
       // Validate image inputs from request using ImageDataValidator function
       const inputsStatusCheck = ImageDataValidator(
@@ -52,7 +53,7 @@ async function resizeImageBackend(
       )
       if (inputsStatusCheck === 'SUCCESS') {
         // do the work
-        await sharp(`./public/demo-images/${inFileName}`)
+        await sharp(`${demoImageDirectory}${inFileName}`)
           .resize({
             width: parseInt(inWidth),
             height: parseInt(inHeight),
@@ -112,8 +113,8 @@ async function resizeImageBackend(
     } else {
       const errorAlert = displayErrorAlert(
         'image not found',
-        `please select an image from the demo-images directory<br><hr/>
-        <strong>Available images</strong> <br>
+        `please select an image from the <strong>demo-images</strong> directory<br><hr/>
+        <strong style="display:block;margin-bottom:1px;">Available images</strong> <br>
         [ encenadaport.jpg , fjord.jpg , icelandwaterfall.jpg , palmtunnel.jpg , santamonica.jpg ]`
       )
       inRes.status(400).send(errorAlert)
