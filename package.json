@@ -8,7 +8,7 @@
     "format": "prettier --config .prettierrc \"src/**/*.{js,html,ts}\" --write",
     "lint": "eslint --ext \"src/**/*.{js,ts}\"",
     "lint:fix": "npm run lint -- --fix",
-    "build": "npm run lint:fix && npm run format && tsc",
+    "build": "npm run format && npm run lint:fix && tsc",
     "start": "node build/index.js",
     "test": "npm run build && jasmine",
     "production": "npm run test && npm run start",
