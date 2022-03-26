@@ -1,5 +1,3 @@
-import express from 'express'
-
 // get file extension lowercase
 export function getFileExtension(fileName: string): string {
   // check period found in file name
