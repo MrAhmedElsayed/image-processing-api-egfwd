@@ -50,8 +50,10 @@ http://127.0.0.1:3000/resize?file_name=encenadaport.jpg&width=1000&height=400
 explanation:   
 **file_name** is encenadaport.jpg    
 **width** is 1000 in pixel   
-**height** is 400 in pixel   
+**height** is 400 in pixel  
 
+what are you expecting ?? A new folder called Thumbnails has been created inside the Public folder with the resized image   
+`public/thumbnails/encenadaport_1000_X_400.jpg`
 
 
 
