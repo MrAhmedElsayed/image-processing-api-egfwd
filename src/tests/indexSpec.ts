@@ -1,5 +1,5 @@
 import createOrReturnDirectory from '../utilities/filesManage'
-import resizeImage from '../utilities/resize'
+import resizeImage from '../utilities/resizeFrontend'
 import { base64ToBuffer, imageToBase64 } from '../utilities/imageToBuffer'
 
 // Create a test to see if the directory exists or not, and if it does not exist,
@@ -12,8 +12,8 @@ it('should return the directory path', () => {
 
 // Create a test in an asynchronous way to change the image size by entering the file name,
 // width, height and check whether the image has been converted correctly
-describe('resizeImage', () => {
-  it('Check if image found after resize', async () => {
+describe('resizeImage (for front-end functionality testing)', () => {
+  it('Check if image found after resize (front-end)', async () => {
     const base64Image = await imageToBase64(
       './public/demo-images/santamonica.jpg'
     )

@@ -32,6 +32,11 @@ export function ImageDataValidator(
       // send when the width and height are not numbers
       statusCode = 'widthAndHeightNotNumbers'
       return statusCode
+    }
+    if (parseInt(width) <= 0 || parseInt(height) <= 0) {
+      // send when the width and height are greater than 0
+      statusCode = 'widthAndHeightGreaterThanZero'
+      return statusCode
     } else {
       // send when image file, width and height are valid
       statusCode = 'SUCCESS'

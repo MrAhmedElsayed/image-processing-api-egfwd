@@ -1,6 +1,5 @@
 import express from 'express'
 import { displayErrorAlert } from '../utilities/displayErrorAlert'
-import createOrReturnDirectory from '../utilities/filesManage'
 import {
   ImageDataValidator,
   getFileExtension,
@@ -8,36 +7,32 @@ import {
 import fs from 'fs'
 import sharp from 'sharp'
 
-const resizeRouter = express.Router()
-
-resizeRouter.get('/', async (req: express.Request, res: express.Response) => {
-  // check if output directory exists, if not create it
-  const outputDirectory = await createOrReturnDirectory('./public/thumbnails/')
-  // get inputes from the query
-  const { file_name, width, height } = req.query as {
-    file_name: string
-    width: string
-    height: string
-  }
-
+// create async function to resize image using sharp
+async function resizeImageBackend(
+  outputDir: string,
+  inWidth: string,
+  inHeight: string,
+  inFileName: string,
+  inRes: express.Response
+) {
   // check if the image resized with same dimensions exists
-  const imageExtentionClean = getFileExtension(file_name)
-  const resizedImageExists = fs.existsSync(
-    `${outputDirectory}${
-      file_name.split('.')[0]
-    }_${width}_X_${height}.${imageExtentionClean}`
+  const imageExtentionClean = await getFileExtension(inFileName)
+  const resizedImageExists = await fs.existsSync(
+    `${outputDir}${
+      inFileName.split('.')[0]
+    }_${inWidth}_X_${inHeight}.${imageExtentionClean}`
   )
 
   if (resizedImageExists) {
     // get and send existing resized image
     await sharp(
-      `${outputDirectory}${
-        file_name.split('.')[0]
-      }_${width}_X_${height}.${imageExtentionClean}`
+      `${outputDir}${
+        inFileName.split('.')[0]
+      }_${inWidth}_X_${inHeight}.${imageExtentionClean}`
     )
       .toBuffer()
       .then((data) => {
-        return res
+        return inRes
           .send(
             '<img alt="Resized Image" src="data:image/png;base64,' +
               data.toString('base64') +
@@ -47,26 +42,30 @@ resizeRouter.get('/', async (req: express.Request, res: express.Response) => {
       })
   } else {
     //  CHEK if image in demo-images directory
-    const fileExists = await fs.existsSync(`./public/demo-images/${file_name}`)
+    const fileExists = await fs.existsSync(`./public/demo-images/${inFileName}`)
     if (fileExists) {
       // Validate image inputs from request using ImageDataValidator function
-      const inputsStatusCheck = ImageDataValidator(file_name, width, height)
+      const inputsStatusCheck = ImageDataValidator(
+        inFileName,
+        inWidth,
+        inHeight
+      )
       if (inputsStatusCheck === 'SUCCESS') {
         // do the work
-        await sharp(`./public/demo-images/${file_name}`)
+        await sharp(`./public/demo-images/${inFileName}`)
           .resize({
-            width: parseInt(width),
-            height: parseInt(height),
+            width: parseInt(inWidth),
+            height: parseInt(inHeight),
           })
           .toBuffer()
           .then((data) => {
             fs.writeFileSync(
-              `${outputDirectory}${
-                file_name.split('.')[0]
-              }_${width}_X_${height}.${imageExtentionClean}`,
+              `${outputDir}${
+                inFileName.split('.')[0]
+              }_${inWidth}_X_${inHeight}.${imageExtentionClean}`,
               data
             )
-            return res
+            return inRes
               .send(
                 '<img alt="Resized Image" src="data:image/png;base64,' +
                   data.toString('base64') +
@@ -80,35 +79,35 @@ resizeRouter.get('/', async (req: express.Request, res: express.Response) => {
           'Invalid image name',
           'Please check your image name and extension'
         )
-        res.status(400).send(errorAlert)
+        inRes.status(400).send(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightNotValide') {
         // when the image name, width and height are not valid, or image have no extention
         const errorAlert = displayErrorAlert(
           'fill width and height',
           'Please fill width and height'
         )
-        res.status(400).send(errorAlert)
+        inRes.status(400).send(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightNotNumbers') {
         // send error message
         const errorAlert = displayErrorAlert(
           'width and height must be numbers',
           'Please check your width and height inputs it must be numbers'
         )
-        res.status(400).send(errorAlert)
+        inRes.status(400).send(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightGreaterThanZero') {
         // send error message
         const errorAlert = displayErrorAlert(
           'width and height must be greater than zero',
           'Please check your width and height inputs it must be greater than zero'
         )
-        res.status(400).send(errorAlert)
+        inRes.status(400).send(errorAlert)
       } else {
         // send common error message
         const errorAlert = displayErrorAlert(
           'Oops!',
           'Something went wrong, please try again'
         )
-        res.status(400).send(errorAlert)
+        inRes.status(400).send(errorAlert)
       }
     } else {
       const errorAlert = displayErrorAlert(
@@ -117,9 +116,9 @@ resizeRouter.get('/', async (req: express.Request, res: express.Response) => {
         <strong>Available images</strong> <br>
         [ encenadaport.jpg , fjord.jpg , icelandwaterfall.jpg , palmtunnel.jpg , santamonica.jpg ]`
       )
-      res.status(400).send(errorAlert)
+      inRes.status(400).send(errorAlert)
     }
   }
-})
+}
 
-export default resizeRouter
+export default resizeImageBackend
