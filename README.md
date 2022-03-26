@@ -57,7 +57,7 @@ npm i
     http://127.0.0.1:3000/resize?file_name=encenadaport.jpg&width=1000&height=400
     
 
-- To resize an image inter this parameters in your URL as the following :  
+- To resize an image inject these parameters in your URL as the following :  
     file_name=fjord.jpg (refere to image name in demo-images Directory)   
     width=300 (target image width)  
     height=200  (target image height)

@@ -1,24 +1,43 @@
 import express from 'express'
 
-// TODO: check for if the image without the extension
-function ImageDataValidator(
-  imageName: string,
-  width: string,
-  height: string,
-  response: express.Response
-): boolean {
-  if (imageName.length === 0 || width.length === 0 || height.length === 0) {
-    response.status(400).send('Image name, width and height are required')
-    return false
+// get file extension lowercase
+export function getFileExtension(fileName: string): string {
+  // check period found in file name
+  if (fileName.indexOf('.') === -1 || fileName.indexOf('.') === 0) {
+    return '' as string
   } else {
-    if (isNaN(parseInt(width)) || isNaN(parseInt(height))) {
-      response.status(400).send('Width and height must be integers')
-      return false
-    } else {
-      // response.status(200).send('Image name, width and height are valid')
-      return true
-    }
+    // get the file extension
+    return fileName.substring(fileName.lastIndexOf('.') + 1).toLowerCase()
+    // return (fileName.split('.').pop() as string).toLowerCase()
   }
 }
 
-export default ImageDataValidator
+// TODO: check for if the image without the extension
+export function ImageDataValidator(
+  imageName: string,
+  width: string,
+  height: string
+): string {
+  // check if the image have extention
+  const imageExtentionClean = getFileExtension(imageName)
+  let statusCode = ''
+  if (imageExtentionClean.length === 0) {
+    statusCode = 'fileNameNotValide'
+    return statusCode
+  } else if (width.length === 0 || height.length === 0) {
+    // send when the image name, width and height are not valid, or image have no extention
+    statusCode = 'widthAndHeightNotValide'
+    return statusCode
+  } else {
+    // check if the width and height are numbers
+    if (isNaN(parseInt(width)) || isNaN(parseInt(height))) {
+      // send when the width and height are not numbers
+      statusCode = 'widthAndHeightNotNumbers'
+      return statusCode
+    } else {
+      // send when image file, width and height are valid
+      statusCode = 'SUCCESS'
+      return statusCode
+    }
+  }
+}
