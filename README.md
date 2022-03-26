@@ -133,7 +133,7 @@ you will see Awesome UI with the same functionality
 
 ## UI screenshots
 
-![App Screenshot](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/Screenshot1.pn)
+![App Screenshot](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/Screenshot1.png)
 
 ![App Screenshot2](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/Screenshot2.png)
 ## Optimizations
