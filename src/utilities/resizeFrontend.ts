@@ -10,7 +10,7 @@ async function resizeImage(
   height: number,
   fileName: string,
   imageExtension: string
-) {
+): Promise<string | Buffer> {
   const direc = createOrReturnDirectory(default_thumbnail_directory)
 
   const ifThumb = await checkIfThumbnailExists(
@@ -32,7 +32,7 @@ async function resizeImage(
         return returnedData
       })
 
-    return image
+    return (await image).bufferImage
   } else {
     try {
       await sharp(image)
@@ -60,7 +60,7 @@ async function resizeImage(
         return returnedData
       })
 
-    return semiTransparentRedPng
+    return semiTransparentRedPng.bufferImage
   }
 }
 

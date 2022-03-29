@@ -15,7 +15,7 @@ async function resizeImageBackend(
   outputDir: string,
   demoImageDirectory: string,
   inRes: express.Response
-) {
+): Promise<void> {
   // check if the image resized with same dimensions exists
   const imageExtentionClean = await getFileExtension(inFileName)
   const resizedImageExists = await fs.existsSync(

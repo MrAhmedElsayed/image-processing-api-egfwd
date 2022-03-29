@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 height: heightVar,
               },
             })
-            let resizedImageAsString = res.data.bufferImage
+            let resizedImageAsString = res.data
             document
               .getElementById('preview-box')
               .setAttribute(

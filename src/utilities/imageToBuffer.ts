@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-export const imageToBase64 = (filePath: string): Promise<string> => {
+export const imageToBase64 = async (filePath: string): Promise<string> => {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
       if (err) {

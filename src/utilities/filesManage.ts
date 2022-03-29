@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-function createOrReturnDirectory(defaultPath: string) {
+function createOrReturnDirectory(defaultPath: string): string {
   if (!fs.existsSync(defaultPath)) {
     fs.mkdirSync(defaultPath)
     return defaultPath
