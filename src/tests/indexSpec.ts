@@ -5,7 +5,7 @@ import createOrReturnDirectory from '../utilities/filesManage'
 // create a request object
 const request = supertest(app)
 
-describe('GET /resize', function () {
+describe('test rezise endpoint', function () {
   it('image resized and saved in thumbnails directory', async function () {
     const default_thumbnail_directory = './public/thumbnails/'
     await createOrReturnDirectory(default_thumbnail_directory)
@@ -14,12 +14,7 @@ describe('GET /resize', function () {
     const testHeight = '300'
     const response = await request
       .get(
-        '/resize?file_name=' +
-          testFileName +
-          '&width=' +
-          testWidth +
-          '&height=' +
-          testHeight
+        `/resize?file_name=${testFileName}&width=${testWidth}&height=${testHeight}`
       )
       .set('Accept', 'application/json')
     await expect(response.status).toEqual(200)
