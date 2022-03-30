@@ -6,6 +6,7 @@ import sharp from 'sharp'
 import createOrReturnDirectory from './filesManage'
 
 // create async function to resize image using sharp
+//TODO: try to return a string type
 async function resizeImageBackend(
   inFileName: string,
   inWidth: string,
@@ -16,6 +17,7 @@ async function resizeImageBackend(
 ): Promise<void> {
   // create a new directory if it doesn't exist
   createOrReturnDirectory(outputDir)
+
   //set default output directory to demo image directory
   if (outputDir === '') {
     outputDir = './public/thumbnails/'
@@ -44,12 +46,12 @@ async function resizeImageBackend(
       .toBuffer()
       .then((data) => {
         inRes
+          .status(200)
           .send(
             `<img alt="Resized Image" src="data:image/png;base64,${data.toString(
               'base64'
             )}" />`
           )
-          .status(200)
       })
   } else {
     //  CHECK if image in demo-images directory
@@ -77,12 +79,12 @@ async function resizeImageBackend(
               data
             )
             inRes
+              .status(200)
               .send(
                 `<img alt="Resized Image" src="data:image/png;base64,${data.toString(
                   'base64'
                 )}" />`
               )
-              .status(200)
           })
       } else if (inputsStatusCheck === 'fileNameNotValid') {
         const errorAlert = displayErrorAlert(
