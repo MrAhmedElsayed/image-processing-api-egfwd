@@ -1,5 +1,5 @@
 import express from 'express'
-import resizeImage from '../utilities/resizeFrontend'
+import resizeImage from '../services/resizeFrontend'
 import { base64ToBufferOnfly } from '../utilities/imageToBuffer'
 
 const resizeRouteFromFrontend = express.Router()

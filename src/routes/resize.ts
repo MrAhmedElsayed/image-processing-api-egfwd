@@ -1,5 +1,5 @@
 import express from 'express'
-import resizeImageBackend from '../utilities/resizeBackend'
+import resizeImageBackend from '../services/resizeBackend'
 
 const resizeRouter = express.Router()
 

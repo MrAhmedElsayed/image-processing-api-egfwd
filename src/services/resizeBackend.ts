@@ -1,9 +1,12 @@
 import express from 'express'
-import { displayErrorAlert } from './displayErrorAlert'
-import { ImageDataValidator, getFileExtension } from './validateImageInputs'
+import { displayErrorAlert } from '../utilities/displayErrorAlert'
+import {
+  ImageDataValidator,
+  getFileExtension,
+} from '../utilities/validateImageInputs'
 import fs from 'fs'
 import sharp from 'sharp'
-import createOrReturnDirectory from './filesManage'
+import createOrReturnDirectory from '../utilities/filesManage'
 
 // create async function to resize image using sharp
 //TODO: try to return a string type
@@ -45,7 +48,7 @@ async function resizeImageBackend(
     )
       .toBuffer()
       .then((data) => {
-        inRes
+        return inRes
           .status(200)
           .send(
             `<img alt="Resized Image" src="data:image/png;base64,${data.toString(
@@ -78,7 +81,7 @@ async function resizeImageBackend(
               }_${inWidth}_X_${inHeight}.${imageExtensionClean}`,
               data
             )
-            inRes
+            return inRes
               .status(200)
               .send(
                 `<img alt="Resized Image" src="data:image/png;base64,${data.toString(
@@ -92,30 +95,35 @@ async function resizeImageBackend(
           'Please check your image name and extension'
         )
         inRes.status(400).send(errorAlert)
+        throw new Error(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightNotValid') {
         const errorAlert = displayErrorAlert(
           'fill width and height',
           'Please fill width and height'
         )
         inRes.status(400).send(errorAlert)
+        throw new Error(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightNotNumbers') {
         const errorAlert = displayErrorAlert(
           'width and height must be numbers',
           'Please check your width and height inputs it must be numbers'
         )
         inRes.status(400).send(errorAlert)
+        throw new Error(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightGreaterThanZero') {
         const errorAlert = displayErrorAlert(
           'width and height must be greater than zero',
           'Please check your width and height inputs it must be greater than zero'
         )
         inRes.status(400).send(errorAlert)
+        throw new Error(errorAlert)
       } else {
         const errorAlert = displayErrorAlert(
           'Oops!',
           'Something went wrong, please try again'
         )
         inRes.status(400).send(errorAlert)
+        throw new Error(errorAlert)
       }
     } else {
       const errorAlert = displayErrorAlert(
@@ -125,6 +133,7 @@ async function resizeImageBackend(
         [ encenadaport.jpg , fjord.jpg , icelandwaterfall.jpg , palmtunnel.jpg , santamonica.jpg ]`
       )
       inRes.status(400).send(errorAlert)
+      throw new Error(errorAlert)
     }
   }
 }

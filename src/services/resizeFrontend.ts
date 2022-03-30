@@ -1,6 +1,6 @@
 import sharp from 'sharp'
-import createOrReturnDirectory from './filesManage'
-import checkIfThumbnailExists from './parseCash'
+import createOrReturnDirectory from '../utilities/filesManage'
+import checkIfThumbnailExists from '../utilities/parseCash'
 
 const default_thumbnail_directory = './public/thumbnails/'
 

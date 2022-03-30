@@ -10,14 +10,14 @@ async function checkIfThumbnailExists(
   imageWidth: number,
   imageHeight: number,
   imageExtension: string,
-  defaultPath: string
+  thumbnailsPath: string
 ): Promise<boolean> {
   // get all thumbnails in thumbnails directory
-  const thumbnails = fs.readdirSync(defaultPath)
+  const thumbnails = fs.readdirSync(thumbnailsPath)
   const thumbnailName = `${imageName}_${imageWidth}_X_${imageHeight}.${imageExtension}`
   if (thumbnails.includes(thumbnailName)) {
     // check for other image info
-    const imageMetadata = sharp(`${defaultPath}${thumbnailName}`).metadata()
+    const imageMetadata = sharp(`${thumbnailsPath}${thumbnailName}`).metadata()
     const width = (await imageMetadata).width
     const height = (await imageMetadata).height
     // check if image info is the same
