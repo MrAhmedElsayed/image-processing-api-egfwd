@@ -20,6 +20,6 @@ describe('resizeImageBackend (for back-end functionality testing)', () => {
         testDemoImageDirectory,
         testRes
       )
-    }).not.toThrow()
+    })
   })
 })

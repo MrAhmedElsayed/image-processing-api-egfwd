@@ -17,14 +17,14 @@ export function ImageDataValidator(
   height: string
 ): string {
   // check if the image have extension
-  const imageExtentionClean = getFileExtension(imageName)
-  let statusCode = ''
-  if (imageExtentionClean.length === 0) {
-    statusCode = 'fileNameNotValide'
+  const imageExtensionClean = getFileExtension(imageName)
+  let statusCode: string
+  if (imageExtensionClean.length === 0) {
+    statusCode = 'fileNameNotValid'
     return statusCode
   } else if (width.length === 0 || height.length === 0) {
     // send when the image name, width and height are not valid, or image have no extension
-    statusCode = 'widthAndHeightNotValide'
+    statusCode = 'widthAndHeightNotValid'
     return statusCode
   } else {
     // check if the width and height are numbers

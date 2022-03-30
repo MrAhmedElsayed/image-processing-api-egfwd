@@ -3,6 +3,7 @@ import { displayErrorAlert } from './displayErrorAlert'
 import { ImageDataValidator, getFileExtension } from './validateImageInputs'
 import fs from 'fs'
 import sharp from 'sharp'
+import createOrReturnDirectory from './filesManage'
 
 // create async function to resize image using sharp
 async function resizeImageBackend(
@@ -13,12 +14,24 @@ async function resizeImageBackend(
   demoImageDirectory: string,
   inRes: express.Response
 ): Promise<void> {
+  // create a new directory if it doesn't exist
+  createOrReturnDirectory(outputDir)
+  //set default output directory to demo image directory
+  if (outputDir === '') {
+    outputDir = './public/thumbnails/'
+  }
+
+  // set default demo-image directory to demo image directory
+  if (demoImageDirectory === '') {
+    demoImageDirectory = './public/demo-images/'
+  }
+
   // check if the image resized with same dimensions exists
-  const imageExtentionClean = getFileExtension(inFileName)
+  const imageExtensionClean = getFileExtension(inFileName)
   const resizedImageExists = fs.existsSync(
     `${outputDir}${
       inFileName.split('.')[0]
-    }_${inWidth}_X_${inHeight}.${imageExtentionClean}`
+    }_${inWidth}_X_${inHeight}.${imageExtensionClean}`
   )
 
   if (resizedImageExists) {
@@ -26,20 +39,20 @@ async function resizeImageBackend(
     await sharp(
       `${outputDir}${
         inFileName.split('.')[0]
-      }_${inWidth}_X_${inHeight}.${imageExtentionClean}`
+      }_${inWidth}_X_${inHeight}.${imageExtensionClean}`
     )
       .toBuffer()
       .then((data) => {
-        return inRes
+        inRes
           .send(
-            '<img alt="Resized Image" src="data:image/png;base64,' +
-              data.toString('base64') +
-              '" />'
+            `<img alt="Resized Image" src="data:image/png;base64,${data.toString(
+              'base64'
+            )}" />`
           )
           .status(200)
       })
   } else {
-    //  CHEK if image in demo-images directory
+    //  CHECK if image in demo-images directory
     const fileExists = fs.existsSync(`${demoImageDirectory}${inFileName}`)
     if (fileExists) {
       // Validate image inputs from request using ImageDataValidator function
@@ -60,47 +73,42 @@ async function resizeImageBackend(
             fs.writeFileSync(
               `${outputDir}${
                 inFileName.split('.')[0]
-              }_${inWidth}_X_${inHeight}.${imageExtentionClean}`,
+              }_${inWidth}_X_${inHeight}.${imageExtensionClean}`,
               data
             )
-            return inRes
+            inRes
               .send(
-                '<img alt="Resized Image" src="data:image/png;base64,' +
-                  data.toString('base64') +
-                  '" />'
+                `<img alt="Resized Image" src="data:image/png;base64,${data.toString(
+                  'base64'
+                )}" />`
               )
               .status(200)
           })
-      } else if (inputsStatusCheck === 'fileNameNotValide') {
-        // when the image name, width and height are not valid, or image have no extention
+      } else if (inputsStatusCheck === 'fileNameNotValid') {
         const errorAlert = displayErrorAlert(
           'Invalid image name',
           'Please check your image name and extension'
         )
         inRes.status(400).send(errorAlert)
-      } else if (inputsStatusCheck === 'widthAndHeightNotValide') {
-        // when the image name, width and height are not valid, or image have no extention
+      } else if (inputsStatusCheck === 'widthAndHeightNotValid') {
         const errorAlert = displayErrorAlert(
           'fill width and height',
           'Please fill width and height'
         )
         inRes.status(400).send(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightNotNumbers') {
-        // send error message
         const errorAlert = displayErrorAlert(
           'width and height must be numbers',
           'Please check your width and height inputs it must be numbers'
         )
         inRes.status(400).send(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightGreaterThanZero') {
-        // send error message
         const errorAlert = displayErrorAlert(
           'width and height must be greater than zero',
           'Please check your width and height inputs it must be greater than zero'
         )
         inRes.status(400).send(errorAlert)
       } else {
-        // send common error message
         const errorAlert = displayErrorAlert(
           'Oops!',
           'Something went wrong, please try again'

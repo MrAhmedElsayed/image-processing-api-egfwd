@@ -11,20 +11,20 @@ async function resizeImage(
   fileName: string,
   imageExtension: string
 ): Promise<string | Buffer> {
-  const direc = createOrReturnDirectory(default_thumbnail_directory)
+  const outputDir = createOrReturnDirectory(default_thumbnail_directory)
 
   const ifThumb = await checkIfThumbnailExists(
     fileName,
     width,
     height,
     imageExtension,
-    direc
+    outputDir
   )
 
   if (ifThumb) {
     // if image found grab it from thumbnails directory
     const image = sharp(
-      `${direc}/${fileName}_${width}_X_${height}.${imageExtension}`
+      `${outputDir}/${fileName}_${width}_X_${height}.${imageExtension}`
     )
       .toBuffer()
       .then((data) => {
@@ -39,7 +39,9 @@ async function resizeImage(
           width: width,
           height: height,
         })
-        .toFile(direc + `${fileName}_${width}_X_${height}.${imageExtension}`)
+        .toFile(
+          outputDir + `${fileName}_${width}_X_${height}.${imageExtension}`
+        )
         .then((data) => {
           console.log(data)
         })
@@ -47,7 +49,7 @@ async function resizeImage(
       console.log(error)
     }
 
-    // todo: Find way to combine to functions togrther
+    // todo: Find a way to combine two functions together
     const semiTransparentRedPng = await sharp(image)
       .resize({
         width: width,
