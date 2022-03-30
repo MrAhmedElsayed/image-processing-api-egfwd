@@ -1,6 +1,6 @@
 export function displayErrorAlert(
   errorHeader: string,
-  errorDeatails: string
+  errorDetails: string
 ): string {
   return `
     <div
@@ -34,7 +34,7 @@ export function displayErrorAlert(
         </svg>
       </div>
       <strong>Error:</strong> <span>${errorHeader}</span>
-      <p>${errorDeatails}</p>
+      <p>${errorDetails}</p>
     </div>
     `
 }

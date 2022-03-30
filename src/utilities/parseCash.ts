@@ -16,7 +16,6 @@ async function checkIfThumbnailExists(
   const thumbnails = fs.readdirSync(defaultPath)
   const thumbnailName = `${imageName}_${imageWidth}_X_${imageHeight}.${imageExtension}`
   if (thumbnails.includes(thumbnailName)) {
-    console.log('thumbnail exists')
     // check for other image info
     const imageMetadata = sharp(`${defaultPath}${thumbnailName}`).metadata()
     const width = (await imageMetadata).width
