@@ -1,9 +1,6 @@
 import express from 'express'
-import { displayErrorAlert } from '../utilities/displayErrorAlert'
-import {
-  ImageDataValidator,
-  getFileExtension,
-} from '../utilities/validateImageInputs'
+import { displayErrorAlert } from './displayErrorAlert'
+import { ImageDataValidator, getFileExtension } from './validateImageInputs'
 import fs from 'fs'
 import sharp from 'sharp'
 
@@ -17,8 +14,8 @@ async function resizeImageBackend(
   inRes: express.Response
 ): Promise<void> {
   // check if the image resized with same dimensions exists
-  const imageExtentionClean = await getFileExtension(inFileName)
-  const resizedImageExists = await fs.existsSync(
+  const imageExtentionClean = getFileExtension(inFileName)
+  const resizedImageExists = fs.existsSync(
     `${outputDir}${
       inFileName.split('.')[0]
     }_${inWidth}_X_${inHeight}.${imageExtentionClean}`
@@ -43,7 +40,7 @@ async function resizeImageBackend(
       })
   } else {
     //  CHEK if image in demo-images directory
-    const fileExists = await fs.existsSync(`${demoImageDirectory}${inFileName}`)
+    const fileExists = fs.existsSync(`${demoImageDirectory}${inFileName}`)
     if (fileExists) {
       // Validate image inputs from request using ImageDataValidator function
       const inputsStatusCheck = ImageDataValidator(

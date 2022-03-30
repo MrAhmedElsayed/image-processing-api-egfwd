@@ -5,7 +5,7 @@ import createOrReturnDirectory from '../../utilities/filesManage'
 describe('createOrReturnDirectory', () => {
   it('Check if directory exists', async () => {
     const testDirectory = './public/thumbnails/'
-    const testDirectoryExists = await createOrReturnDirectory(testDirectory)
+    const testDirectoryExists = createOrReturnDirectory(testDirectory)
     await expect(testDirectoryExists).toBe(testDirectory)
   })
 })

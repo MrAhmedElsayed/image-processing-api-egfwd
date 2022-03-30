@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function () {
     errorSpan = document.getElementById(`${errorSpan}`)
     let errorAlert = document.getElementById(`${errorAlertID}`)
     // first check if image, width and height are not empty.
-    if (imageInput == '' || widthInput == '' || heightInput == '') {
+    if (imageInput === '' || widthInput === '' || heightInput === '') {
       errorMessage = 'Please enter a valid image, width and height'
       errorSpan.innerHTML = errorMessage
       errorAlert.style.display = 'block'
@@ -203,8 +203,7 @@ document.addEventListener('DOMContentLoaded', function () {
     try {
       let w = parseInt(document.getElementById(`${widthInputID}`).value)
       let h = parseInt(document.getElementById(`${heightInputID}`).value)
-      let imageDimentions = { width: w, height: h }
-      return imageDimentions
+      return {width: w, height: h}
     } catch (error) {
       console.log(error)
     }
@@ -257,6 +256,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const postImageData = async () => {
           try {
             let requestUrl = 'http://127.0.0.1:3000/resize-from-frontend'
+            // eslint-disable-next-line no-undef
             const res = await axios({
               method: 'post',
               url: requestUrl,
@@ -289,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function () {
   })
 
   // ------------------------------------- list all images resized from localstorage ----------------------------------------
+  // todo: disabled functionality
   // first check if image objects array in localstorage
   var imageObjects = JSON.parse(localStorage.getItem('imageObjects'))
   if (imageObjects) {

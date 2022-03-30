@@ -28,8 +28,7 @@ async function resizeImage(
     )
       .toBuffer()
       .then((data) => {
-        const returnedData = { bufferImage: data.toString('base64') }
-        return returnedData
+        return { bufferImage: data.toString('base64') }
       })
 
     return (await image).bufferImage
@@ -56,8 +55,7 @@ async function resizeImage(
       })
       .toBuffer()
       .then((data) => {
-        const returnedData = { bufferImage: data.toString('base64') }
-        return returnedData
+        return { bufferImage: data.toString('base64') }
       })
 
     return semiTransparentRedPng.bufferImage

@@ -7,7 +7,7 @@ import { base64ToBuffer, imageToBase64 } from '../../utilities/imageToBuffer'
 describe('resizeImage (for front-end functionality testing)', () => {
   it('Check if sent as buffer as response (front-end)', async () => {
     const default_thumbnail_directory = './public/thumbnails/'
-    await createOrReturnDirectory(default_thumbnail_directory)
+    createOrReturnDirectory(default_thumbnail_directory)
     const base64Image = await imageToBase64(
       './public/demo-images/icelandwaterfall.jpg'
     )

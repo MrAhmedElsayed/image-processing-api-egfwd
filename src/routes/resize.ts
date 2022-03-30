@@ -8,11 +8,9 @@ resizeRouter.get(
   '/',
   async (req: express.Request, res: express.Response): Promise<void> => {
     // check if output directory exists, if not create it
-    const outputDirectory = await createOrReturnDirectory(
-      './public/thumbnails/'
-    )
+    const outputDirectory = createOrReturnDirectory('./public/thumbnails/')
     const imagesDirectory = './public/demo-images/'
-    // get inputes from the query
+    // get inputs from the query
     const { file_name, width, height } = (await req.query) as {
       file_name: string
       width: string

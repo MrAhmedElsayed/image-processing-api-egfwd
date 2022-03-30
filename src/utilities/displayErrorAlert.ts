@@ -2,18 +2,17 @@ export function displayErrorAlert(
   errorHeader: string,
   errorDeatails: string
 ): string {
-  const errorMessage = `
+  return `
     <div
       style="
         max-width: 500px;
         box-sizing: border-box;
         color: #842029;
         background-color: #f8d7da;
-        border-color: #f5c2c7;
         position: relative;
         padding: 1rem 1rem;
         margin: 3rem;
-        border: 1px solid transparent;
+        border: 1px solid #f5c2c7;
         border-radius: 0.25rem;
         font-family: sans-serif;
       "
@@ -38,5 +37,4 @@ export function displayErrorAlert(
       <p>${errorDeatails}</p>
     </div>
     `
-  return errorMessage
 }

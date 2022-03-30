@@ -20,6 +20,5 @@ export const base64ToBufferOnfly = (base64: string): Buffer => {
   const toString = `${base64}`
   const parts = toString.split(';')
   const imageData = parts[1].split(',')[1]
-  const img = Buffer.from(imageData, 'base64')
-  return img
+  return Buffer.from(imageData, 'base64')
 }
