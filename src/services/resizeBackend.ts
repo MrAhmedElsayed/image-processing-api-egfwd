@@ -40,22 +40,18 @@ async function resizeImageBackend(
   )
 
   if (resizedImageExists) {
-    // get and send existing resized image
-    await sharp(
+    // TODO: read and return hosted static image from thumbnails directory
+    //get image from thumbnails directory and send it to client
+    const image = fs.readFileSync(
       `${outputDir}${
         inFileName.split('.')[0]
       }_${inWidth}_X_${inHeight}.${imageExtensionClean}`
     )
-      .toBuffer()
-      .then((data) => {
-        return inRes
-          .status(200)
-          .send(
-            `<img alt="Resized Image" src="data:image/png;base64,${data.toString(
-              'base64'
-            )}" />`
-          )
-      })
+    inRes.writeHead(200, {
+      'Content-Type': 'image/' + imageExtensionClean,
+      'Content-Length': image.length,
+    })
+    inRes.end(image)
   } else {
     //  CHECK if image in demo-images directory
     const fileExists = fs.existsSync(`${demoImageDirectory}${inFileName}`)
@@ -73,21 +69,22 @@ async function resizeImageBackend(
             width: parseInt(inWidth),
             height: parseInt(inHeight),
           })
-          .toBuffer()
-          .then((data) => {
-            fs.writeFileSync(
+          .toFile(
+            `${outputDir}${
+              inFileName.split('.')[0]
+            }_${inWidth}_X_${inHeight}.${imageExtensionClean}`
+          )
+          .then(() => {
+            const image = fs.readFileSync(
               `${outputDir}${
                 inFileName.split('.')[0]
-              }_${inWidth}_X_${inHeight}.${imageExtensionClean}`,
-              data
+              }_${inWidth}_X_${inHeight}.${imageExtensionClean}`
             )
-            return inRes
-              .status(200)
-              .send(
-                `<img alt="Resized Image" src="data:image/png;base64,${data.toString(
-                  'base64'
-                )}" />`
-              )
+            inRes.writeHead(200, {
+              'Content-Type': 'image/' + imageExtensionClean,
+              'Content-Length': image.length,
+            })
+            inRes.end(image)
           })
       } else if (inputsStatusCheck === 'fileNameNotValid') {
         const errorAlert = displayErrorAlert(
@@ -102,38 +99,33 @@ async function resizeImageBackend(
           'Please fill width and height'
         )
         inRes.status(400).send(errorAlert)
-        throw new Error(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightNotNumbers') {
         const errorAlert = displayErrorAlert(
           'width and height must be numbers',
           'Please check your width and height inputs it must be numbers'
         )
         inRes.status(400).send(errorAlert)
-        throw new Error(errorAlert)
       } else if (inputsStatusCheck === 'widthAndHeightGreaterThanZero') {
         const errorAlert = displayErrorAlert(
           'width and height must be greater than zero',
           'Please check your width and height inputs it must be greater than zero'
         )
         inRes.status(400).send(errorAlert)
-        throw new Error(errorAlert)
       } else {
         const errorAlert = displayErrorAlert(
           'Oops!',
           'Something went wrong, please try again'
         )
         inRes.status(400).send(errorAlert)
-        throw new Error(errorAlert)
       }
     } else {
       const errorAlert = displayErrorAlert(
         'image not found',
         `please select an image from the <strong>demo-images</strong> directory<br><hr/>
-        <strong style="display:block;margin-bottom:1px;">Available images</strong> <br>
+        <strong style='display:block;margin-bottom:1px;'>Available images</strong> <br>
         [ encenadaport.jpg , fjord.jpg , icelandwaterfall.jpg , palmtunnel.jpg , santamonica.jpg ]`
       )
       inRes.status(400).send(errorAlert)
-      throw new Error(errorAlert)
     }
   }
 }
