@@ -16,7 +16,6 @@ async function resizeImageBackend(
   inHeight: string,
   outputDir: string,
   demoImageDirectory: string,
-  inRes: express.Response
 ): Promise<void> {
   // create a new directory if it doesn't exist
   createOrReturnDirectory(outputDir)
