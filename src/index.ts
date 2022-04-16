@@ -1,33 +1,26 @@
 import express from 'express'
-import morgan from 'morgan'
 import path from 'path'
-import homeRoute from './routes/home'
-import resizeRouteFromFrontend from './routes/resizeRouteFromFrontend'
-import resizeRoute from './routes/resize'
-import bodyParser from 'body-parser'
+import morgan from 'morgan'
+import resize from './routes/resize'
+import { HomeCard } from './utils/homeMessage'
 
 const app = express()
-app.use(express.static(path.join(__dirname, '../public')))
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
-app.use(bodyParser.json({ limit: '50mb' }))
+const port = 3000
 
+app.use(express.static(path.join(__dirname, '../public')))
 app.use(morgan('dev'))
 
-//add the router
-app.use('/', homeRoute)
-app.use('/resize', resizeRoute)
-app.use('/resize-from-frontend', resizeRouteFromFrontend)
+app.use('/resize', resize)
 
-// handle 404 responses
-app.use((req: express.Request, res: express.Response): void => {
-  res.status(404).sendFile(path.resolve('src', './views/notfound.html'))
+app.get('/', (req, res) => {
+  res.send(HomeCard)
 })
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
-app.listen(process.env.port || 3000)
-
-console.log('Server started at http://localhost:3000')
+app.listen(port, () => {
+  console.log(`server started ctrl+L-click: http://localhost:${port}`)
+})
 
 export default app
