@@ -59,7 +59,7 @@ what are you expecting ?? A new folder called Thumbnails has been created inside
 
 ## Screenshots
 
-![App Screenshot](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/backend-screenshoot.png)
+![App Screenshot](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/screenshots/backend-screenshoot.png)  
 
 
 ## Run Locally
@@ -129,24 +129,14 @@ Please Visit:
 
 http://127.0.0.1:3000/
 
-you will see Awesome UI with the same functionality
+you will see Awesome Message to start demo
 
 
+## Optimizations  
 
-## UI screenshots
+- The entire project has also been isolated with a relatively good structure.
 
-![App Screenshot](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/Screenshot1.png)
 
-----
-
-![App Screenshot2](https://github.com/MrAhmedElsayed/image-processing-api-egfwd/blob/main/public/images/Screenshot2.png)
-## Optimizations
-
-The project has been divided into two parts:
-- A section for the backend (which is to change the size through the URL).
-- Front End section (and a user interface was used to implement this, which is characterized by ease of use).
-
-The entire project has also been isolated with a relatively good structure.
 # Hi, I'm Ahmed Elsayed! 👋
 
 
