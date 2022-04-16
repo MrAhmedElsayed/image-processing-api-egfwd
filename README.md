@@ -124,12 +124,12 @@ To run the final edition after organizing code, building, and testing
 
 There is more than that !!
 
-I create a front-end for this App  
+I create a Landing Page for this App  
 Please Visit:
 
 http://127.0.0.1:3000/
 
-you will see Awesome Message to start demo
+you will see an Awesome Message to start demo
 
 
 ## Optimizations  
